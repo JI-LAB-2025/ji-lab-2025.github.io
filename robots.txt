@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://ji-lab-2025.github.io/al-folio/sitemap.xml
+Sitemap: https://ji-lab-2025.github.io/sitemap.xml
