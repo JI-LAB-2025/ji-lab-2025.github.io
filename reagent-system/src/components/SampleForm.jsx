@@ -83,15 +83,19 @@ export function SampleForm({ selectedCell, boxId, onSave, onDelete, onCopy, onBa
                 <div className="grid grid-cols-4 gap-2">
                     <div className="col-span-3">
                         <label className="block text-xs font-medium text-gray-700 mb-1">样品类型 *</label>
-                        <select
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none bg-white"
+                        <input
+                            list="sample-type-options"
+                            type="text"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all"
                             value={formData.type}
                             onChange={(e) => handleChange('type', e.target.value)}
-                        >
+                            placeholder="选择或输入类型"
+                        />
+                        <datalist id="sample-type-options">
                             {SAMPLE_TYPES.map(type => (
-                                <option key={type.value} value={type.value}>{type.name}</option>
+                                <option key={type.value} value={type.value} />
                             ))}
-                        </select>
+                        </datalist>
                     </div>
                     <div>
                         <label className="block text-xs font-medium text-gray-700 mb-1">颜色</label>
