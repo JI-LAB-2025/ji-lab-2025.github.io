@@ -2,23 +2,35 @@ import React, { useState, useEffect } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { CryoboxGrid } from './components/CryoboxGrid';
 import { SampleForm } from './components/SampleForm';
+import { Login } from './components/Login';
 import { api } from './lib/notion';
 
 function App() {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [boxes, setBoxes] = useState([]);
     const [selectedBox, setSelectedBox] = useState(null);
     const [samples, setSamples] = useState([]);
     const [selectedCell, setSelectedCell] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    // Load initial boxes
+    // Check auth on mount
     useEffect(() => {
-        api.getBoxes().then(data => {
-            setBoxes(data);
-            if (data.length > 0) setSelectedBox(data[0]);
-            setLoading(false);
-        });
+        const auth = localStorage.getItem('reagent_auth');
+        if (auth === 'true') {
+            setIsAuthenticated(true);
+        }
     }, []);
+
+    // Load initial boxes only if authenticated
+    useEffect(() => {
+        if (isAuthenticated) {
+            api.getBoxes().then(data => {
+                setBoxes(data);
+                if (data.length > 0) setSelectedBox(data[0]);
+                setLoading(false);
+            });
+        }
+    }, [isAuthenticated]);
 
     // Load samples when box changes
     useEffect(() => {
@@ -52,17 +64,29 @@ function App() {
         setSelectedCell({ ...cell, ...sample });
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem('reagent_auth');
+        setIsAuthenticated(false);
+    };
+
+    if (!isAuthenticated) {
+        return <Login onLogin={() => setIsAuthenticated(true)} />;
+    }
+
     if (loading) return <div className="flex h-screen items-center justify-center">Loading...</div>;
 
     return (
         <div className="flex h-screen w-full bg-gray-50 text-slate-900 font-sans">
             {/* Sidebar: Box Management */}
-            <div className="w-64 flex-shrink-0 border-r border-gray-200 bg-white shadow-sm z-10">
+            <div className="w-64 flex-shrink-0 border-r border-gray-200 bg-white shadow-sm z-10 flex flex-col">
                 <Sidebar
                     boxes={boxes}
                     selectedBox={selectedBox || {}}
                     onSelectBox={setSelectedBox}
                 />
+                <div className="border-t p-4 mt-auto">
+                    <button onClick={handleLogout} className="text-xs text-red-500 hover:text-red-700">退出登录</button>
+                </div>
             </div>
 
             {/* Main Content: Grid */}

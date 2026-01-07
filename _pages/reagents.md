@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Reagent System
+title: <i class="fa-solid fa-flask"></i>
 permalink: /reagent-system/
 nav: true
 nav_order: 4
