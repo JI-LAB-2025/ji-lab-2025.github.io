@@ -1,6 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-export function SampleForm({ selectedCell, boxId }) {
+export function SampleForm({ selectedCell, boxId, onSave }) {
+    // Local state for form inputs
+    const [formData, setFormData] = useState({
+        name: '',
+        type: '细胞',
+        date: '2025-11-04',
+        note: ''
+    });
+
+    // Update form when selected cell changes
+    useEffect(() => {
+        if (selectedCell) {
+            setFormData({
+                name: selectedCell.label || '',
+                type: selectedCell.type || '细胞',
+                date: selectedCell.date || new Date().toISOString().split('T')[0],
+                note: selectedCell.note || ''
+            });
+        }
+    }, [selectedCell]);
+
+    const handleChange = (field, value) => {
+        setFormData(prev => ({ ...prev, [field]: value }));
+    };
+
+    const handleSave = () => {
+        if (onSave) {
+            onSave(formData);
+        }
+    };
+
     if (!selectedCell) {
         return (
             <div className="h-full flex flex-col items-center justify-center text-gray-400">
@@ -24,14 +54,19 @@ export function SampleForm({ selectedCell, boxId }) {
                     <input
                         type="text"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all"
-                        defaultValue={selectedCell.label || ""}
+                        value={formData.name}
+                        onChange={(e) => handleChange('name', e.target.value)}
                         placeholder="例如: MDCK"
                     />
                 </div>
 
                 <div>
                     <label className="block text-xs font-medium text-gray-700 mb-1">样品类型 *</label>
-                    <select className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none bg-white">
+                    <select
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none bg-white"
+                        value={formData.type}
+                        onChange={(e) => handleChange('type', e.target.value)}
+                    >
                         <option>细胞</option>
                         <option>细菌</option>
                         <option>病毒</option>
@@ -46,7 +81,8 @@ export function SampleForm({ selectedCell, boxId }) {
                     <input
                         type="date"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none"
-                        defaultValue="2025-11-04"
+                        value={formData.date}
+                        onChange={(e) => handleChange('date', e.target.value)}
                     />
                 </div>
 
@@ -55,12 +91,16 @@ export function SampleForm({ selectedCell, boxId }) {
                     <textarea
                         className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none h-24 resize-none"
                         placeholder="添加备注信息..."
+                        value={formData.note}
+                        onChange={(e) => handleChange('note', e.target.value)}
                     />
                 </div>
             </div>
 
             <div className="mt-8 grid grid-cols-2 gap-3">
-                <button className="bg-emerald-500 text-white py-2 rounded-md hover:bg-emerald-600 transition-colors shadow-sm font-medium text-sm">
+                <button
+                    onClick={handleSave}
+                    className="bg-emerald-500 text-white py-2 rounded-md hover:bg-emerald-600 transition-colors shadow-sm font-medium text-sm">
                     保存样品
                 </button>
                 <button className="bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors shadow-sm font-medium text-sm">
