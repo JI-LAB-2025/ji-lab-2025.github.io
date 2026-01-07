@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export function SampleForm({ selectedCell, boxId, onSave }) {
+export function SampleForm({ selectedCell, boxId, onSave, onDelete }) {
     // Local state for form inputs
     const [formData, setFormData] = useState({
         name: '',
@@ -28,6 +28,12 @@ export function SampleForm({ selectedCell, boxId, onSave }) {
     const handleSave = () => {
         if (onSave) {
             onSave(formData);
+        }
+    };
+
+    const handleDelete = () => {
+        if (onDelete && window.confirm('确定要删除这个样品吗？')) {
+            onDelete();
         }
     };
 
@@ -103,10 +109,14 @@ export function SampleForm({ selectedCell, boxId, onSave }) {
                     className="bg-emerald-500 text-white py-2 rounded-md hover:bg-emerald-600 transition-colors shadow-sm font-medium text-sm">
                     保存样品
                 </button>
-                <button className="bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors shadow-sm font-medium text-sm">
+                <button
+                    onClick={() => alert('复制功能开发中')}
+                    className="bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors shadow-sm font-medium text-sm">
                     复制样品
                 </button>
-                <button className="bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition-colors shadow-sm font-medium text-sm">
+                <button
+                    onClick={handleDelete}
+                    className="bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition-colors shadow-sm font-medium text-sm">
                     删除样品
                 </button>
                 <button className="bg-gray-100 text-gray-600 border border-gray-200 py-2 rounded-md hover:bg-gray-200 transition-colors font-medium text-sm">

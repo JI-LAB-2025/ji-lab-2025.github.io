@@ -73,6 +73,26 @@ function App() {
         return <Login onLogin={() => setIsAuthenticated(true)} />;
     }
 
+    const handleDeleteSample = async () => {
+        if (!selectedCell || !selectedCell.id) return;
+
+        // Optimistic update
+        await api.deleteSample(selectedCell.id);
+
+        setSamples(prev => prev.filter(s => s.id !== selectedCell.id));
+
+        // Reset selection to empty state
+        setSelectedCell({
+            ...selectedCell,
+            isOccupied: false,
+            label: null,
+            id: null,
+            type: null,
+            date: null,
+            note: null
+        });
+    };
+
     if (loading) return <div className="flex h-screen items-center justify-center">Loading...</div>;
 
     return (
@@ -119,6 +139,7 @@ function App() {
                     selectedCell={selectedCell}
                     boxId={selectedBox?.id}
                     onSave={handleSaveSample}
+                    onDelete={handleDeleteSample}
                 />
             </div>
         </div>
