@@ -8,6 +8,7 @@ export function DashboardLayout() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [structure, setStructure] = useState({ rooms: [], units: [], shelves: [], boxes: [] });
     // Legacy support & Sidebar state
+    const [boxes, setBoxes] = useState([]);
     const [selectedBox, setSelectedBox] = useState(null);
     const [boxModal, setBoxModal] = useState({ isOpen: false, mode: 'create', name: '' });
     const navigate = useNavigate();
