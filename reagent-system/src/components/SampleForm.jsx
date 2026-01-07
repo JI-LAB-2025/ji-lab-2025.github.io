@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { SAMPLE_TYPES } from '../lib/constants';
 
 export function SampleForm({ selectedCell, boxId, onSave, onDelete }) {
     // Local state for form inputs
     const [formData, setFormData] = useState({
         name: '',
-        type: '细胞',
+        type: SAMPLE_TYPES[0].value,
         date: '2025-11-04',
         note: ''
     });
@@ -14,7 +15,7 @@ export function SampleForm({ selectedCell, boxId, onSave, onDelete }) {
         if (selectedCell) {
             setFormData({
                 name: selectedCell.label || '',
-                type: selectedCell.type || '细胞',
+                type: selectedCell.type || SAMPLE_TYPES[0].value,
                 date: selectedCell.date || new Date().toISOString().split('T')[0],
                 note: selectedCell.note || ''
             });
@@ -73,12 +74,9 @@ export function SampleForm({ selectedCell, boxId, onSave, onDelete }) {
                         value={formData.type}
                         onChange={(e) => handleChange('type', e.target.value)}
                     >
-                        <option>细胞</option>
-                        <option>细菌</option>
-                        <option>病毒</option>
-                        <option>RNA</option>
-                        <option>DNA</option>
-                        <option>其他</option>
+                        {SAMPLE_TYPES.map(type => (
+                            <option key={type.value} value={type.value}>{type.name}</option>
+                        ))}
                     </select>
                 </div>
 
