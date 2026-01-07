@@ -32,6 +32,30 @@ export function CryoboxGrid({ box, samples = [], selectedCell, onSelectCell, onE
         return grid;
     }, [box.id, samples]);
 
+    // Calculate dynamic legend items
+    const legendItems = useMemo(() => {
+        // Start with standard types
+        const items = [...SAMPLE_TYPES];
+
+        // Find custom types in current samples
+        const customTypesMap = new Map();
+        samples.forEach(s => {
+            // If type is not in standard list, it's custom
+            if (!SAMPLE_TYPES.find(t => t.value === s.type)) {
+                if (!customTypesMap.has(s.type)) {
+                    customTypesMap.set(s.type, s.color || '#9ca3af');
+                }
+            }
+        });
+
+        // Add custom types to legend
+        customTypesMap.forEach((color, type) => {
+            items.push({ name: type, value: type, color });
+        });
+
+        return items;
+    }, [samples]);
+
     return (
         <div className="flex flex-col h-full">
             <div className="flex justify-between items-center mb-6">
@@ -82,7 +106,7 @@ export function CryoboxGrid({ box, samples = [], selectedCell, onSelectCell, onE
 
             {/* Legend */}
             <div className="mt-6 border-t pt-4 flex gap-4 text-xs text-gray-500 flex-wrap">
-                {SAMPLE_TYPES.map(type => (
+                {legendItems.map(type => (
                     <div key={type.value} className="flex items-center gap-1">
                         <div
                             className="w-3 h-3 rounded-sm"
