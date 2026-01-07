@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-slate-800 antialiased;
+  }
+}
+
+.cell {
+  @apply aspect-square border border-gray-200 flex items-center justify-center text-xs cursor-pointer hover:bg-brand-50 transition-colors bg-white;
+}
+
+.cell.selected {
+  @apply ring-2 ring-brand-500 z-10;
+}
+
+.cell.occupied {
+  @apply text-white font-medium;
+}
