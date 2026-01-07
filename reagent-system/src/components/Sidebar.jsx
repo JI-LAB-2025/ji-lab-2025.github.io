@@ -2,7 +2,7 @@ import React from 'react';
 import { Package, Plus } from 'lucide-react';
 import { clsx } from 'clsx';
 
-export function Sidebar({ boxes, selectedBox, onSelectBox }) {
+export function Sidebar({ boxes, selectedBox, onSelectBox, onCreateBox }) {
     return (
         <div className="flex flex-col h-full">
             <div className="p-4 border-b border-gray-100">
@@ -13,7 +13,9 @@ export function Sidebar({ boxes, selectedBox, onSelectBox }) {
             </div>
 
             <div className="p-3">
-                <button className="w-full py-2 px-3 bg-white border border-gray-200 shadow-sm rounded-md text-sm font-medium text-gray-600 hover:text-brand-500 hover:border-brand-500 flex items-center justify-center gap-2 transition-all">
+                <button
+                    onClick={onCreateBox}
+                    className="w-full py-2 px-3 bg-white border border-gray-200 shadow-sm rounded-md text-sm font-medium text-gray-600 hover:text-brand-500 hover:border-brand-500 flex items-center justify-center gap-2 transition-all">
                     <Plus size={16} /> 新建冻存盒
                 </button>
             </div>
