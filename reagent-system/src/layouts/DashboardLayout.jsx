@@ -6,25 +6,14 @@ import { Login } from '../components/Login';
 
 export function DashboardLayout() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [boxes, setBoxes] = useState([]);
-    const [selectedBox, setSelectedBox] = useState(null);
-    const [boxModal, setBoxModal] = useState({ isOpen: false, mode: 'create', name: '' });
-    const navigate = useNavigate();
-
-    // Check auth on mount
-    useEffect(() => {
-        const auth = localStorage.getItem('reagent_auth');
-        if (auth === 'true') {
-            setIsAuthenticated(true);
-        }
-    }, []);
+    const [structure, setStructure] = useState({ rooms: [], units: [], shelves: [], boxes: [] });
 
     // Load initial boxes only if authenticated
     useEffect(() => {
         if (isAuthenticated) {
-            api.getBoxes().then(data => {
-                setBoxes(data);
-                // Don't auto-select box here, let routing handle it
+            api.getStructure().then(data => {
+                setStructure(data);
+                setBoxes(data.boxes); // Keep legacy boxes support for now
             });
         }
     }, [isAuthenticated]);
@@ -117,7 +106,8 @@ export function DashboardLayout() {
             {/* Sidebar: Box Management */}
             <div className="w-64 flex-shrink-0 border-r border-gray-200 bg-white shadow-sm z-10 flex flex-col">
                 <Sidebar
-                    boxes={boxes}
+                    structure={structure}
+                    boxes={structure.boxes} // Legacy fallback
                     selectedBox={selectedBox || {}}
                     onSelectBox={handleSelectBox}
                     onCreateBox={handleCreateBox}
