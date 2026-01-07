@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { clsx } from 'clsx';
+import { getSampleColor, SAMPLE_TYPES } from '../lib/constants';
 
 // Helper to generate grid data (10x10)
 const ROWS = 10;
@@ -23,7 +24,7 @@ export function CryoboxGrid({ box, samples = [], selectedCell, onSelectCell }) {
                     number: count++,
                     isOccupied: !!sample,
                     label: sample ? sample.name : null,
-                    color: sample ? 'bg-brand-500' : 'bg-gray-50' // Use brand color
+                    color: sample ? getSampleColor(sample.type) : 'bg-gray-50'
                 });
             }
         }
@@ -76,12 +77,14 @@ export function CryoboxGrid({ box, samples = [], selectedCell, onSelectCell }) {
             </div>
 
             {/* Legend */}
-            <div className="mt-6 border-t pt-4 flex gap-4 text-xs text-gray-500">
-                <div className="flex items-center gap-1"><div className="w-3 h-3 bg-purple-500 rounded-sm"></div> 细胞</div>
-                <div className="flex items-center gap-1"><div className="w-3 h-3 bg-green-500 rounded-sm"></div> 细菌</div>
-                <div className="flex items-center gap-1"><div className="w-3 h-3 bg-red-500 rounded-sm"></div> 组织/血浆</div>
-                <div className="flex items-center gap-1"><div className="w-3 h-3 bg-amber-500 rounded-sm"></div> 病毒</div>
-                <div className="flex items-center gap-1"><div className="w-3 h-3 bg-gray-300 rounded-sm"></div> 空置</div>
+            <div className="mt-6 border-t pt-4 flex gap-4 text-xs text-gray-500 flex-wrap">
+                {SAMPLE_TYPES.map(type => (
+                    <div key={type.value} className="flex items-center gap-1">
+                        <div className={`w-3 h-3 ${type.color} rounded-sm`}></div>
+                        {type.name}
+                    </div>
+                ))}
+                <div className="flex items-center gap-1"><div className="w-3 h-3 bg-gray-50 rounded-sm border border-gray-200"></div> 空置</div>
             </div>
         </div>
     );
