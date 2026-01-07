@@ -12,6 +12,7 @@ function App() {
     const [samples, setSamples] = useState([]);
     const [selectedCell, setSelectedCell] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [boxModal, setBoxModal] = useState({ isOpen: false, mode: 'create', name: '' });
 
     // Check auth on mount
     useEffect(() => {
@@ -151,8 +152,6 @@ function App() {
         setSamples([]);
         setSelectedCell(null);
     };
-
-    const [boxModal, setBoxModal] = useState({ isOpen: false, mode: 'create', name: '' });
 
     const handleCreateBox = () => {
         setBoxModal({ isOpen: true, mode: 'create', name: '' });
