@@ -40,5 +40,14 @@ export const api = {
 
     async deleteSample(sampleId) {
         console.log("Deleting sample:", sampleId);
+    },
+
+    async saveBox(box) {
+        console.log("Saving box to Notion (Mock):", box);
+        return { ...box, id: box.id || Math.random().toString(36), capacity: box.capacity || 100, occupied: box.occupied || 0 };
+    },
+
+    async deleteBox(boxId) {
+        console.log("Deleting box:", boxId);
     }
 };

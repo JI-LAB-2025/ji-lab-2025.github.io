@@ -6,7 +6,7 @@ import { getSampleColor, SAMPLE_TYPES } from '../lib/constants';
 const ROWS = 10;
 const COLS = 10;
 
-export function CryoboxGrid({ box, samples = [], selectedCell, onSelectCell }) {
+export function CryoboxGrid({ box, samples = [], selectedCell, onSelectCell, onEditBox, onDeleteBox }) {
 
     // Calculate grid cells derived from box size (assuming 10x10 for now)
     const cells = useMemo(() => {
@@ -43,8 +43,8 @@ export function CryoboxGrid({ box, samples = [], selectedCell, onSelectCell }) {
                     </div>
                 </div>
                 <div className="flex gap-2">
-                    <button className="px-3 py-1.5 text-sm bg-amber-500 text-white rounded hover:bg-amber-600">编辑冻存盒</button>
-                    <button className="px-3 py-1.5 text-sm bg-red-400 text-white rounded hover:bg-red-500">删除</button>
+                    <button onClick={onEditBox} className="px-3 py-1.5 text-sm bg-amber-500 text-white rounded hover:bg-amber-600">编辑冻存盒</button>
+                    <button onClick={onDeleteBox} className="px-3 py-1.5 text-sm bg-red-400 text-white rounded hover:bg-red-500">删除</button>
                 </div>
             </div>
 

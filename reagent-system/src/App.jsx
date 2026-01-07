@@ -152,6 +152,45 @@ function App() {
         setSelectedCell(null);
     };
 
+    const handleCreateBox = async () => {
+        const name = window.prompt("请输入新冻存盒的名称:", "New Box");
+        if (!name) return;
+
+        const newBox = {
+            name,
+            type: 'General',
+            capacity: 100,
+            occupied: 0
+        };
+
+        const saved = await api.saveBox(newBox);
+        setBoxes(prev => [...prev, saved]);
+        setSelectedBox(saved);
+    };
+
+    const handleEditBox = async () => {
+        if (!selectedBox) return;
+        const name = window.prompt("修改冻存盒名称:", selectedBox.name);
+        if (!name || name === selectedBox.name) return;
+
+        const updatedBox = { ...selectedBox, name };
+        const saved = await api.saveBox(updatedBox);
+
+        setBoxes(prev => prev.map(b => b.id === saved.id ? saved : b));
+        setSelectedBox(saved);
+    };
+
+    const handleDeleteBox = async () => {
+        if (!selectedBox) return;
+        if (!window.confirm(`确定要删除冻存盒 "${selectedBox.name}" 吗？所有格子数据也将被删除！`)) return;
+
+        await api.deleteBox(selectedBox.id);
+
+        const remaining = boxes.filter(b => b.id !== selectedBox.id);
+        setBoxes(remaining);
+        setSelectedBox(remaining.length > 0 ? remaining[0] : null);
+    };
+
     if (loading) return <div className="flex h-screen items-center justify-center">Loading...</div>;
 
     return (
@@ -162,6 +201,7 @@ function App() {
                     boxes={boxes}
                     selectedBox={selectedBox || {}}
                     onSelectBox={setSelectedBox}
+                    onCreateBox={handleCreateBox}
                 />
                 <div className="border-t p-4 mt-auto">
                     <button onClick={handleLogout} className="text-xs text-red-500 hover:text-red-700">退出登录</button>
@@ -186,6 +226,8 @@ function App() {
                                 samples={samples}
                                 selectedCell={selectedCell}
                                 onSelectCell={handleCellSelect}
+                                onEditBox={handleEditBox}
+                                onDeleteBox={handleDeleteBox}
                             />
                         )}
                     </div>
