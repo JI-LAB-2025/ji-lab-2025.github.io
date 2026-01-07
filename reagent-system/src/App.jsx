@@ -152,32 +152,37 @@ function App() {
         setSelectedCell(null);
     };
 
-    const handleCreateBox = async () => {
-        const name = window.prompt("请输入新冻存盒的名称:", "New Box");
-        if (!name) return;
+    const [boxModal, setBoxModal] = useState({ isOpen: false, mode: 'create', name: '' });
 
-        const newBox = {
-            name,
-            type: 'General',
-            capacity: 100,
-            occupied: 0
-        };
-
-        const saved = await api.saveBox(newBox);
-        setBoxes(prev => [...prev, saved]);
-        setSelectedBox(saved);
+    const handleCreateBox = () => {
+        setBoxModal({ isOpen: true, mode: 'create', name: '' });
     };
 
-    const handleEditBox = async () => {
+    const handleEditBox = () => {
         if (!selectedBox) return;
-        const name = window.prompt("修改冻存盒名称:", selectedBox.name);
-        if (!name || name === selectedBox.name) return;
+        setBoxModal({ isOpen: true, mode: 'edit', name: selectedBox.name });
+    };
 
-        const updatedBox = { ...selectedBox, name };
-        const saved = await api.saveBox(updatedBox);
+    const handleBoxModalSave = async () => {
+        if (!boxModal.name.trim()) return;
 
-        setBoxes(prev => prev.map(b => b.id === saved.id ? saved : b));
-        setSelectedBox(saved);
+        if (boxModal.mode === 'create') {
+            const newBox = {
+                name: boxModal.name,
+                type: 'General',
+                capacity: 100,
+                occupied: 0
+            };
+            const saved = await api.saveBox(newBox);
+            setBoxes(prev => [...prev, saved]);
+            setSelectedBox(saved);
+        } else {
+            const updatedBox = { ...selectedBox, name: boxModal.name };
+            const saved = await api.saveBox(updatedBox);
+            setBoxes(prev => prev.map(b => b.id === saved.id ? saved : b));
+            setSelectedBox(saved);
+        }
+        setBoxModal({ isOpen: false, mode: 'create', name: '' });
     };
 
     const handleDeleteBox = async () => {
@@ -193,8 +198,50 @@ function App() {
 
     if (loading) return <div className="flex h-screen items-center justify-center">Loading...</div>;
 
+    const Modal = () => {
+        if (!boxModal.isOpen) return null;
+        return (
+            <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+                <div className="bg-white rounded-lg shadow-xl w-full max-w-sm overflow-hidden">
+                    <div className="px-5 py-4 border-b border-gray-100">
+                        <h3 className="font-bold text-gray-800">
+                            {boxModal.mode === 'create' ? '新建冻存盒' : '编辑冻存盒'}
+                        </h3>
+                    </div>
+                    <div className="p-5">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">名称</label>
+                        <input
+                            autoFocus
+                            type="text"
+                            className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-brand-500 outline-none"
+                            placeholder="请输入冻存盒名称"
+                            value={boxModal.name}
+                            onChange={(e) => setBoxModal(prev => ({ ...prev, name: e.target.value }))}
+                            onKeyDown={(e) => e.key === 'Enter' && handleBoxModalSave()}
+                        />
+                    </div>
+                    <div className="px-5 py-3 bg-gray-50 flex justify-end gap-2 border-t border-gray-100">
+                        <button
+                            onClick={() => setBoxModal(prev => ({ ...prev, isOpen: false }))}
+                            className="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-200 rounded"
+                        >
+                            取消
+                        </button>
+                        <button
+                            onClick={handleBoxModalSave}
+                            className="px-3 py-1.5 text-sm bg-brand-500 text-white rounded hover:bg-brand-600 font-medium"
+                        >
+                            确定
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     return (
-        <div className="flex h-screen w-full bg-gray-50 text-slate-900 font-sans">
+        <div className="flex h-screen w-full bg-gray-50 text-slate-900 font-sans relative">
+            <Modal />
             {/* Sidebar: Box Management */}
             <div className="w-64 flex-shrink-0 border-r border-gray-200 bg-white shadow-sm z-10 flex flex-col">
                 <Sidebar
