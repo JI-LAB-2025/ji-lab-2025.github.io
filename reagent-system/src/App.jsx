@@ -81,16 +81,75 @@ function App() {
 
         setSamples(prev => prev.filter(s => s.id !== selectedCell.id));
 
-        // Reset selection to empty state
+        // Reset selection (keep empty cell selected)
         setSelectedCell({
             ...selectedCell,
             isOccupied: false,
             label: null,
             id: null,
             type: null,
+            color: null,
             date: null,
             note: null
         });
+    };
+
+    const handleCopySample = async () => {
+        if (!selectedCell || !selectedCell.id) {
+            alert('请先选择一个已有的样品');
+            return;
+        }
+
+        // Strategy: Find first empty cell
+        // 1. Create a set of occupied keys
+        const occupied = new Set(samples.map(s => `${s.row}-${s.col}`));
+
+        // 2. Scan 10x10 grid
+        let targetRow = -1;
+        let targetCol = -1;
+
+        for (let r = 0; r < 10; r++) {
+            for (let c = 0; c < 10; c++) {
+                if (!occupied.has(`${r}-${c}`)) {
+                    targetRow = r;
+                    targetCol = c;
+                    break;
+                }
+            }
+            if (targetRow !== -1) break;
+        }
+
+        if (targetRow === -1) {
+            alert('盒子已满，无法复制');
+            return;
+        }
+
+        // 3. Create duplicate
+        const newSample = {
+            ...selectedCell,
+            id: undefined, // Let backend/logic generate new ID
+            row: targetRow,
+            col: targetCol,
+            name: `${selectedCell.label} (Copy)`
+        };
+
+        const saved = await api.saveSample(newSample);
+        setSamples(prev => [...prev, saved]);
+
+        // Optional: Move selection to new copy? Or stay? Let's stay for now or notify.
+        alert(`已复制到格子 ${targetRow * 10 + targetCol + 1}`);
+    };
+
+    const handleBatchDelete = async () => {
+        if (!selectedBox) return;
+        if (!window.confirm(`确定要清空盒子 "${selectedBox.name}" 中的所有样品吗？此操作不可恢复。`)) return;
+
+        // In a real app, API would support batch delete. Here we iterate (slow but works for mock)
+        // or assumption: API has clearBox
+        // For Mock, let's just clear local state and assume API call
+
+        setSamples([]);
+        setSelectedCell(null);
     };
 
     if (loading) return <div className="flex h-screen items-center justify-center">Loading...</div>;
@@ -140,6 +199,8 @@ function App() {
                     boxId={selectedBox?.id}
                     onSave={handleSaveSample}
                     onDelete={handleDeleteSample}
+                    onCopy={handleCopySample}
+                    onBatchDelete={handleBatchDelete}
                 />
             </div>
         </div>

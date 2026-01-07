@@ -24,7 +24,8 @@ export function CryoboxGrid({ box, samples = [], selectedCell, onSelectCell }) {
                     number: count++,
                     isOccupied: !!sample,
                     label: sample ? sample.name : null,
-                    color: sample ? getSampleColor(sample.type) : 'bg-gray-50'
+                    // Store the HEX color: custom color OR default for type OR gray
+                    color: sample ? (sample.color || getSampleColor(sample.type)) : '#f9fafb' // gray-50
                 });
             }
         }
@@ -61,9 +62,12 @@ export function CryoboxGrid({ box, samples = [], selectedCell, onSelectCell }) {
                         <div
                             key={cell.id}
                             onClick={() => onSelectCell(cell)}
+                            // Use inline style for background color to support arbitrary Hex
+                            style={{ backgroundColor: cell.isOccupied ? cell.color : undefined }}
                             className={clsx(
                                 "relative border rounded-sm flex items-center justify-center text-xs cursor-pointer transition-all select-none",
-                                cell.isOccupied ? cell.color : "bg-white hover:bg-blue-50",
+                                // Only apply default bg if NOT occupied (since we use inline style for simple colors)
+                                !cell.isOccupied && "bg-white hover:bg-blue-50",
                                 cell.isOccupied ? "text-white border-transparent" : "text-gray-400 border-gray-200",
                                 isSelected && "ring-2 ring-offset-1 ring-blue-500 z-10 scale-105 shadow-md"
                             )}
@@ -80,7 +84,10 @@ export function CryoboxGrid({ box, samples = [], selectedCell, onSelectCell }) {
             <div className="mt-6 border-t pt-4 flex gap-4 text-xs text-gray-500 flex-wrap">
                 {SAMPLE_TYPES.map(type => (
                     <div key={type.value} className="flex items-center gap-1">
-                        <div className={`w-3 h-3 ${type.color} rounded-sm`}></div>
+                        <div
+                            className="w-3 h-3 rounded-sm"
+                            style={{ backgroundColor: type.color }}
+                        ></div>
                         {type.name}
                     </div>
                 ))}

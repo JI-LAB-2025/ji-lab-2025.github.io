@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { SAMPLE_TYPES } from '../lib/constants';
+import { SAMPLE_TYPES, getSampleColor } from '../lib/constants';
 
-export function SampleForm({ selectedCell, boxId, onSave, onDelete }) {
+export function SampleForm({ selectedCell, boxId, onSave, onDelete, onCopy, onBatchDelete }) {
     // Local state for form inputs
     const [formData, setFormData] = useState({
         name: '',
         type: SAMPLE_TYPES[0].value,
+        color: SAMPLE_TYPES[0].color,
         date: '2025-11-04',
         note: ''
     });
@@ -16,6 +17,8 @@ export function SampleForm({ selectedCell, boxId, onSave, onDelete }) {
             setFormData({
                 name: selectedCell.label || '',
                 type: selectedCell.type || SAMPLE_TYPES[0].value,
+                // Use stored color OR default color for this type
+                color: selectedCell.color || getSampleColor(selectedCell.type || SAMPLE_TYPES[0].value),
                 date: selectedCell.date || new Date().toISOString().split('T')[0],
                 note: selectedCell.note || ''
             });
@@ -23,7 +26,17 @@ export function SampleForm({ selectedCell, boxId, onSave, onDelete }) {
     }, [selectedCell]);
 
     const handleChange = (field, value) => {
-        setFormData(prev => ({ ...prev, [field]: value }));
+        setFormData(prev => {
+            const newData = { ...prev, [field]: value };
+
+            // If Type changes, auto-update Color to default (unless user manually changes color later? 
+            // For simplicity, always sync color on type change for now, user can override after)
+            if (field === 'type') {
+                newData.color = getSampleColor(value);
+            }
+
+            return newData;
+        });
     };
 
     const handleSave = () => {
@@ -67,17 +80,30 @@ export function SampleForm({ selectedCell, boxId, onSave, onDelete }) {
                     />
                 </div>
 
-                <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">样品类型 *</label>
-                    <select
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none bg-white"
-                        value={formData.type}
-                        onChange={(e) => handleChange('type', e.target.value)}
-                    >
-                        {SAMPLE_TYPES.map(type => (
-                            <option key={type.value} value={type.value}>{type.name}</option>
-                        ))}
-                    </select>
+                <div className="grid grid-cols-4 gap-2">
+                    <div className="col-span-3">
+                        <label className="block text-xs font-medium text-gray-700 mb-1">样品类型 *</label>
+                        <select
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none bg-white"
+                            value={formData.type}
+                            onChange={(e) => handleChange('type', e.target.value)}
+                        >
+                            {SAMPLE_TYPES.map(type => (
+                                <option key={type.value} value={type.value}>{type.name}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div>
+                        <label className="block text-xs font-medium text-gray-700 mb-1">颜色</label>
+                        <div className="relative">
+                            <input
+                                type="color"
+                                value={formData.color}
+                                onChange={(e) => handleChange('color', e.target.value)}
+                                className="w-full h-[42px] p-1 border border-gray-300 rounded-md cursor-pointer bg-white"
+                            />
+                        </div>
+                    </div>
                 </div>
 
                 <div>
@@ -108,7 +134,7 @@ export function SampleForm({ selectedCell, boxId, onSave, onDelete }) {
                     保存样品
                 </button>
                 <button
-                    onClick={() => alert('复制功能开发中')}
+                    onClick={onCopy}
                     className="bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors shadow-sm font-medium text-sm">
                     复制样品
                 </button>
@@ -117,7 +143,9 @@ export function SampleForm({ selectedCell, boxId, onSave, onDelete }) {
                     className="bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition-colors shadow-sm font-medium text-sm">
                     删除样品
                 </button>
-                <button className="bg-gray-100 text-gray-600 border border-gray-200 py-2 rounded-md hover:bg-gray-200 transition-colors font-medium text-sm">
+                <button
+                    onClick={onBatchDelete}
+                    className="bg-gray-100 text-gray-600 border border-gray-200 py-2 rounded-md hover:bg-gray-200 transition-colors font-medium text-sm">
                     批量删除
                 </button>
             </div>
