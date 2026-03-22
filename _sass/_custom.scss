@@ -1,0 +1,295 @@
+/*******************************************************************************
+ * Custom styles for Ji Lab website
+ * Professional research group aesthetic with polished typography and cards
+ ******************************************************************************/
+
+// ============================================================================
+// Typography
+// ============================================================================
+
+body {
+  font-family: 'Inter', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', 'Roboto', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.post-header {
+  .post-title {
+    font-weight: 700;
+    font-size: 2.8rem;
+    letter-spacing: -0.02em;
+  }
+
+  .desc {
+    font-size: 1.15rem;
+    color: var(--global-text-color-light);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+}
+
+// ============================================================================
+// Homepage hero area
+// ============================================================================
+
+.post {
+  .profile {
+    .more-info {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      line-height: 1.6;
+
+      p {
+        margin-bottom: 0.15rem;
+      }
+
+      strong {
+        font-size: 1.05rem;
+      }
+    }
+
+    img {
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      }
+    }
+  }
+}
+
+// ============================================================================
+// News section
+// ============================================================================
+
+.news {
+  h2 a {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    letter-spacing: 0.05em;
+  }
+}
+
+// ============================================================================
+// Cards with hover effects
+// ============================================================================
+
+.card.hoverable {
+  border: 1px solid var(--global-divider-color);
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    border-color: var(--global-theme-color);
+  }
+
+  .card-body {
+    h4 {
+      color: var(--global-theme-color);
+      font-weight: 600;
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-subtitle {
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .card-text {
+      font-size: 0.9rem;
+      line-height: 1.7;
+
+      small {
+        color: var(--global-text-color-light);
+      }
+
+      strong {
+        color: var(--global-theme-color);
+      }
+    }
+  }
+}
+
+// ============================================================================
+// Research page
+// ============================================================================
+
+.research-page {
+  h2 {
+    color: var(--global-theme-color);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  h3 {
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--global-divider-color);
+  }
+
+  .col-md-12 {
+    padding: 1.5rem;
+    background: var(--global-card-bg-color);
+    border-radius: 10px;
+    border: 1px solid var(--global-divider-color);
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// ============================================================================
+// Contact page
+// ============================================================================
+
+.contact-page {
+  h2 {
+    color: var(--global-theme-color);
+    font-weight: 700;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--global-theme-color);
+  }
+}
+
+// ============================================================================
+// Navbar refinement
+// ============================================================================
+
+.navbar {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(var(--global-bg-color-rgb, 255, 255, 255), 0.9) !important;
+
+  .navbar-brand {
+    font-weight: 700 !important;
+    font-size: 1.3rem !important;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-link {
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+    text-transform: capitalize;
+    padding: 0.5rem 0.85rem !important;
+    transition: color 0.2s ease;
+  }
+}
+
+// ============================================================================
+// Publications refinement
+// ============================================================================
+
+.publications {
+  ol.bibliography {
+    li {
+      padding: 1.2rem 0;
+      border-bottom: 1px solid var(--global-divider-color);
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.02);
+      }
+
+      .abbr abbr {
+        padding: 0.25rem 0.6rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+      }
+    }
+  }
+}
+
+// ============================================================================
+// Team profiles
+// ============================================================================
+
+.profile-section {
+  .profile {
+    img {
+      border-radius: 8px;
+    }
+  }
+}
+
+// ============================================================================
+// Footer
+// ============================================================================
+
+footer.fixed-bottom {
+  .container {
+    font-size: 0.8rem;
+    letter-spacing: 0.01em;
+  }
+}
+
+// ============================================================================
+// Smooth scrolling & transitions
+// ============================================================================
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: var(--global-theme-color);
+  color: white;
+}
+
+// ============================================================================
+// Selected publications on homepage
+// ============================================================================
+
+.selected-publications {
+  h2 a {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    letter-spacing: 0.05em;
+  }
+}
+
+// ============================================================================
+// Responsive adjustments
+// ============================================================================
+
+@media (max-width: 768px) {
+  .post-header .post-title {
+    font-size: 2rem;
+  }
+
+  .research-page .col-md-12 {
+    margin-bottom: 1rem;
+  }
+
+  .card.hoverable {
+    margin-bottom: 1rem;
+  }
+}
