@@ -14,7 +14,6 @@ on:
       - "**.js"
       - "**.liquid"
       - "**/*.md"
-      - "reagent-system/**"
       - "**.yml"
       - "Gemfile"
       - "Gemfile.lock"
@@ -44,7 +43,6 @@ on:
       - "**.js"
       - "**.liquid"
       - "**/*.md"
-      - "reagent-system/**"
       - "**.yml"
       - "Gemfile"
       - "Gemfile.lock"
@@ -97,17 +95,7 @@ jobs:
           export JEKYLL_ENV=production
           bundle exec jekyll build
 
-      - name: Build Reagent System 🧪
-        run: |
-          cd reagent-system
-          npm install
-          npm run build
-          mkdir -p ../_site/reagent-system
-          cp -r dist/* ../_site/reagent-system/
-      - name: Purge unused CSS 🧹
-        run: |
-          npm install -g purgecss
-          purgecss -c purgecss.config.js
+
       - name: Deploy 🚀
         if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@v4
