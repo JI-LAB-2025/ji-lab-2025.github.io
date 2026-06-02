@@ -1,48 +1,108 @@
 ---
 layout: default
 ---
-<div class="post">
-  <header class="post-header">
-    <h1 class="post-title">
-      {% if site.title == 'blank' %}
-        <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
-        {{ site.last_name }}
-      {% else %}
-        {{ site.title }}
-      {% endif %}
-    </h1>
-    <p class="desc">{{ page.subtitle }}</p>
-  </header>
-
-  <article>
-    {% if page.profile %}
-      <div class="profile float-{% if page.profile.align == 'left' %}left{% else %}right{% endif %}">
-        {% if page.profile.image %}
-          {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
-          {% if page.profile.image_circular %}
-            {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
+<div class="post lab-home">
+  <section class="lab-hero" aria-labelledby="lab-home-title">
+    <div class="lab-hero__copy">
+      <p class="lab-eyebrow">Peking University First Hospital</p>
+      <header class="post-header">
+        <h1 class="post-title" id="lab-home-title">
+          {% if page.hero_title %}
+            {{ page.hero_title }}
+          {% elsif site.title == 'blank' %}
+            <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
+            {{ site.last_name }}
           {% else %}
-            {% assign profile_image_class = 'img-fluid z-depth-1
-      rounded' %}
+            {{ site.title }}
           {% endif %}
-          {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
-      30vw, 95vw"{% endcapture %}
-          {%
-            include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
-            cache_bust=true
-          %}
-        {% endif %}
-        {% if page.profile.more_info %}
-          <div class="more-info">{{ page.profile.more_info }}</div>
-        {% endif %}
-      </div>
-    {% endif %}
+        </h1>
+        <p class="desc">{{ page.subtitle }}</p>
+      </header>
 
-    <div class="clearfix">{{ content }}</div>
+      {% if page.hero_tags %}
+        <div class="lab-hero__tags" aria-label="Research themes">
+          {% for tag in page.hero_tags %}
+            <span>{{ tag }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if page.hero_actions %}
+        <div class="lab-hero__actions">
+          {% for action in page.hero_actions %}
+            <a class="lab-button lab-button--{{ action.style | default: 'secondary' }}" href="{{ action.url | relative_url }}">
+              {{ action.label }}
+            </a>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <aside class="lab-hero__visual" aria-label="Spatial multi-omics visual summary">
+      <div class="lab-visual-media" aria-hidden="true"></div>
+      <div class="lab-visual-card">
+        <p class="lab-eyebrow">Research Platform</p>
+        <h2>From imaging to interpretable tissue maps</h2>
+        <p>
+          Measurement technologies and modeling frameworks for reading molecular organization inside complex tissues.
+        </p>
+      </div>
+      <div class="lab-visual-metrics" aria-label="Research platform highlights">
+        <div>
+          <span>01</span>
+          <strong>Spatial measurement</strong>
+        </div>
+        <div>
+          <span>02</span>
+          <strong>Multi-modal modeling</strong>
+        </div>
+        <div>
+          <span>03</span>
+          <strong>Disease translation</strong>
+        </div>
+      </div>
+
+      {% if page.profile %}
+        <div class="profile lab-pi-card">
+          {% if page.profile.image %}
+            {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
+            {% if page.profile.image_circular %}
+              {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
+            {% else %}
+              {% assign profile_image_class = 'img-fluid z-depth-1 rounded' %}
+            {% endif %}
+            {% capture sizes %}96px{% endcapture %}
+            {%
+              include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
+              cache_bust=true
+              avoid_scaling=true
+            %}
+          {% endif %}
+          {% if page.profile.more_info %}
+            <div class="more-info">{{ page.profile.more_info }}</div>
+          {% endif %}
+        </div>
+      {% endif %}
+      </aside>
+  </section>
+
+  {% if page.hero_stats %}
+    <section class="lab-stats" aria-label="Lab highlights">
+      {% for stat in page.hero_stats %}
+        <div class="lab-stat">
+          <span class="lab-stat__value">{{ stat.value }}</span>
+          <span class="lab-stat__label">{{ stat.label }}</span>
+        </div>
+      {% endfor %}
+    </section>
+  {% endif %}
+
+  <article class="lab-home__body">
+    <div class="clearfix lab-home__intro">{{ content }}</div>
 
     <!-- News -->
     {% if page.announcements and page.announcements.enabled %}
-      <h2>
+      <h2 class="section-heading">
         <a href="{{ '/news/' | relative_url }}" style="color: inherit">news</a>
       </h2>
       {% include news.liquid limit=true %}
@@ -50,7 +110,7 @@ layout: default
 
     <!-- Latest posts -->
     {% if page.latest_posts and page.latest_posts.enabled %}
-      <h2>
+      <h2 class="section-heading">
         <a href="{{ '/blog/' | relative_url }}" style="color: inherit">latest posts</a>
       </h2>
       {% include latest_posts.liquid %}
@@ -58,7 +118,7 @@ layout: default
 
     <!-- Selected papers -->
     {% if page.selected_papers %}
-      <h2>
+      <h2 class="section-heading">
         <a href="{{ '/publications/' | relative_url }}" style="color: inherit">selected publications</a>
       </h2>
       {% include selected_papers.liquid %}
