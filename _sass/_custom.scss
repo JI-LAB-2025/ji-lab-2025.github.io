@@ -409,31 +409,10 @@ h6 {
   }
 
   .news {
-    .table-responsive {
-      border: 1px solid var(--ji-border);
-      border-radius: 8px;
-      background: var(--global-card-bg-color);
-    }
-
-    .table {
-      margin-bottom: 0;
-
-      tr + tr {
-        border-top: 1px solid var(--ji-border);
-      }
-
-      th,
-      td {
-        padding: 0.75rem 1rem;
-        vertical-align: top;
-      }
-
-      th {
-        color: var(--global-theme-color);
-        font-size: 0.82rem;
-        font-weight: 800;
-        white-space: nowrap;
-      }
+    .news-pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
     }
   }
 }
@@ -448,6 +427,70 @@ h6 {
     text-transform: uppercase;
     font-size: 1.4rem;
     letter-spacing: 0.05em;
+  }
+
+  .news-pill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .news-pill {
+    display: inline-flex;
+    max-width: 100%;
+    min-height: 3.05rem;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.75rem 1.45rem;
+    border: 1px solid rgba(17, 17, 17, 0.1);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.055);
+    color: var(--ji-ink);
+    font-size: 0.92rem;
+    font-weight: 700;
+    line-height: 1.3;
+    transition:
+      background-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
+      transform: translateY(-1px);
+    }
+
+    p {
+      display: inline;
+      margin: 0;
+    }
+  }
+
+  .news-pill__date {
+    flex: 0 0 auto;
+    color: var(--ji-soft);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .news-pill__body {
+    min-width: 0;
+    color: var(--ji-ink);
+  }
+
+  .news-title,
+  .news-pill a {
+    color: var(--ji-ink);
+    font-weight: 800;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--ji-ink);
+      text-decoration: none;
+    }
   }
 }
 
@@ -1369,8 +1412,7 @@ body.fixed-top-nav {
 
 .card.hoverable,
 .research-page .col-md-12,
-.publications ol.bibliography li,
-.news .table-responsive {
+.publications ol.bibliography li {
   border-color: var(--ji-border);
   border-radius: 24px;
   background:
