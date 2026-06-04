@@ -8,13 +8,18 @@ layout: default
   </style>
 {% endif %}
 
-<div class="post">
-  <header class="post-header">
+{% assign page_shell_class = page.title | default: page.url | slugify %}
+
+<div class="post page-shell page-shell--{{ page_shell_class }}">
+  <header class="post-header page-hero">
+    <p class="page-kicker">Ji Lab</p>
     <h1 class="post-title">{{ page.title }}</h1>
-    <p class="post-description">{{ page.description }}</p>
+    {% if page.description %}
+      <p class="post-description">{{ page.description }}</p>
+    {% endif %}
   </header>
 
-  <article>
+  <article class="page-content">
     {{ content }}
   </article>
 

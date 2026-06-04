@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-🎉 Our paper on **high-resolution spatially resolved proteomics** based on microfluidics and transfer learning is published in ***Cell***! [Read the paper →](https://doi.org/10.1016/j.cell.2024.12.023)
+Our paper on **high-resolution spatially resolved proteomics** based on microfluidics and transfer learning is published in ***Cell***. [Read the paper →](https://doi.org/10.1016/j.cell.2024.12.023)

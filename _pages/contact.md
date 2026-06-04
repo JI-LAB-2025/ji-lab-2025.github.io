@@ -9,45 +9,36 @@ nav_order: 5
 
 <!-- _pages/contact.md -->
 
-<div class="contact-page">
+<div class="contact-page ji-content-grid">
+  <section class="ji-contact-grid" aria-label="Contact details">
+    <article class="ji-contact-card">
+      <p class="ji-section-kicker">Address</p>
+      <h2>Ji Lab</h2>
+      <p>
+        Peking University First Hospital<br>
+        No. 8 Xishiku Street, Xicheng District<br>
+        Beijing 100034, China
+      </p>
+    </article>
 
-## Contact Us
+    <article class="ji-contact-card">
+      <p class="ji-section-kicker">Email</p>
+      <h2>Contact</h2>
+      <p>
+        <strong>ji.peifeng [at] pku.edu.cn</strong>
+      </p>
+      <a class="lab-button lab-button--secondary" href="https://scholar.google.com/citations?user=qc6CJjYAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
+    </article>
+  </section>
 
-<div class="row mt-4">
-<div class="col-md-6">
-
-### Address
-
-**Ji Lab（冀培丰课题组）**
-Peking University First Hospital
-No. 8 Xishiku Street, Xicheng District
-Beijing 100034, China
-
-</div>
-<div class="col-md-6">
-
-### Email
-
-<!-- TODO: Update with real email -->
-📧 **ji.peifeng [at] pku.edu.cn**
-
-### Links
-
-- [Google Scholar](https://scholar.google.com/citations?user=qc6CJjYAAAAJ)
-
-</div>
-</div>
-
----
-
-## Interested in Joining?
-
-We are always looking for motivated individuals to join our team. We welcome inquiries from:
-
-- **Postdoctoral researchers** with expertise in spatial omics, mass spectrometry, or computational biology
-- **PhD students** interested in developing cutting-edge multi-omics technologies
-- **Master students** and **undergraduate interns** who are passionate about biomedical research
-
-To apply, please send your **CV** and a **brief statement of research interests** to the email address above.
-
+  <section class="ji-join-panel">
+    <div>
+      <p class="ji-section-kicker">Opportunities</p>
+      <h2>Interested in joining?</h2>
+      <p>
+        We welcome inquiries from postdoctoral researchers, PhD students, Master students, undergraduate interns, and collaborators working across spatial omics, mass spectrometry, computational biology, and disease mechanisms.
+      </p>
+    </div>
+    <a class="lab-button lab-button--primary" href="mailto:ji.peifeng@pku.edu.cn">Send inquiry</a>
+  </section>
 </div>

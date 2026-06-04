@@ -9,64 +9,62 @@ nav_order: 2
 
 <!-- _pages/research.md -->
 
-<div class="research-page">
+<div class="research-page ji-content-grid">
+  <section class="ji-lede-panel">
+    <p class="ji-section-kicker">Research overview</p>
+    <h2>Technology, computation, and disease biology in one spatial frame</h2>
+    <p>
+      Ji Lab develops spatial multi-omics technologies and computational methods to investigate disease mechanisms at molecular and spatial resolution. The goal is to connect advanced measurement systems with clinical interpretation.
+    </p>
+  </section>
 
-## Research Overview
+  <section class="ji-direction-grid" aria-label="Research directions">
+    <article class="ji-direction-card">
+      <span class="ji-card-index">01</span>
+      <h2>Spatial multi-omics technologies</h2>
+      <p>
+        We build spatial proteomics and spatial metabolomics tools that map molecular landscapes directly inside tissue context.
+      </p>
+      <ul class="ji-evidence-list">
+        <li>High-resolution spatial proteomics based on microfluidics and transfer learning, <em>Cell</em>, 2025</li>
+        <li>Spatial metabolomics for in situ tissue analysis and biomarker discovery</li>
+      </ul>
+    </article>
 
-Our laboratory develops cutting-edge **spatial multi-omics technologies** and **computational methods** to investigate disease mechanisms at unprecedented molecular and spatial resolution. We aim to bridge the gap between advanced multi-omics technologies and clinical applications.
+    <article class="ji-direction-card">
+      <span class="ji-card-index">02</span>
+      <h2>Computational multi-omics analysis</h2>
+      <p>
+        We develop models for multi-modal integration, spatial reconstruction, and disease-driving molecular signature discovery.
+      </p>
+      <ul class="ji-evidence-list">
+        <li>SEVtras for small extracellular vesicle analysis, <em>Nature Methods</em>, 2024</li>
+        <li>Single-cell microbiota-gut-brain axis studies, <em>Cell Genomics</em>, 2025</li>
+      </ul>
+    </article>
 
----
+    <article class="ji-direction-card">
+      <span class="ji-card-index">03</span>
+      <h2>Disease mechanisms and translation</h2>
+      <p>
+        We apply spatial multi-omics to metabolic, neurological, cardiovascular, and pathology-centered disease questions.
+      </p>
+      <ul class="ji-evidence-list">
+        <li>Microbiota-gut-brain axis in autism spectrum disorder models</li>
+        <li>Nervonic acid in stroke and post-stroke depression</li>
+        <li>Single-cell transcriptomics of atrial fibrillation</li>
+      </ul>
+    </article>
+  </section>
 
-## Research Directions
-
-<div class="row">
-<div class="col-md-12 mt-3 mb-4">
-
-### 🔬 Spatial Multi-Omics Technologies
-
-We develop novel spatial multi-omics tools — including **spatial proteomics** and **spatial metabolomics** — to map the molecular landscape of tissues with high resolution. Our approaches integrate microfluidics, mass spectrometry imaging, and deep learning to enable high-throughput, high-resolution spatial profiling of complex biological samples.
-
-**Representative work:**
-- High-resolution spatially resolved proteomics based on microfluidics and transfer learning (*Cell*, 2025)
-- Spatial metabolomics for in situ tissue analysis and clinical biomarker discovery
-
-</div>
-</div>
-
-<div class="row">
-<div class="col-md-12 mt-3 mb-4">
-
-### 🧬 Computational Multi-Omics Analysis
-
-We develop computational frameworks for analyzing high-dimensional spatial and single-cell data. Our methods enable multi-modal data integration, spatial reconstruction, and the identification of disease-driving molecular signatures at the tissue level.
-
-**Representative work:**
-- SEVtras: delineating small extracellular vesicles at single-cell resolution (*Nature Methods*, 2024)
-- Single-cell analysis of microbiota-gut-brain axis (*Cell Genomics*, 2025; *Nature Communications*, 2022)
-- Circular RNA expression landscape and isoform quantification (*Cell Reports*, 2019; *Genome Medicine*, 2019)
-
-</div>
-</div>
-
-<div class="row">
-<div class="col-md-12 mt-3 mb-4">
-
-### 🏥 Disease Mechanisms & Clinical Translation
-
-We apply spatial multi-omics approaches to understand the molecular basis of complex diseases, including **metabolic diseases**, **neurological disorders**, and **cardiovascular diseases**. We work to translate our technological advances into clinical diagnostics and therapeutic insights.
-
-**Representative work:**
-- Microbiota-gut-brain axis in autism spectrum disorder models (*Nature Communications*, 2022; *Cell Genomics*, 2025)
-- Nervonic acid in stroke and post-stroke depression (*hLife*, 2024)
-- Single-cell transcriptomics of atrial fibrillation (*Molecular Medicine*, 2024)
-
-</div>
-</div>
-
----
-
-## Join Us
-
-We are always looking for motivated researchers — including **postdoctoral fellows**, **PhD students**, **Master students**, and **research assistants** — to join our team. If you are interested in spatial multi-omics, computational biology, or disease mechanisms, please [contact us](/contact/).
-
+  <section class="ji-join-panel">
+    <div>
+      <p class="ji-section-kicker">Join us</p>
+      <h2>Work across methods and mechanisms</h2>
+      <p>
+        We welcome postdoctoral fellows, PhD students, Master students, research assistants, and collaborators interested in spatial multi-omics, computational biology, and disease mechanisms.
+      </p>
+    </div>
+    <a class="lab-button lab-button--primary" href="{{ '/contact/' | relative_url }}">Contact us</a>
+  </section>
 </div>
