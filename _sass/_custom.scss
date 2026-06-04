@@ -1122,7 +1122,7 @@ body.fixed-top-nav {
         rgba(255, 255, 255, 0.34)
       ),
       url("/assets/img/spatial-hero.svg") center / cover no-repeat;
-    filter: grayscale(1) contrast(0.96) brightness(1.08);
+    filter: saturate(1.08) contrast(0.98) brightness(1.02);
     opacity: 0.9;
 
     &::after {
@@ -1243,7 +1243,7 @@ body.fixed-top-nav {
       border-radius: 16px;
       object-fit: cover;
       object-position: center top;
-      filter: grayscale(1) contrast(0.98);
+      filter: saturate(1.03) contrast(1.01);
     }
 
     .more-info {
@@ -1615,7 +1615,7 @@ body::before {
     radial-gradient(circle at 24% 20%, rgba(255, 255, 255, 0.08), transparent 20%),
     linear-gradient(180deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.28)),
     url("/assets/img/spatial-hero.svg") center 42% / cover no-repeat;
-  filter: grayscale(1) saturate(0.18) contrast(1.08) brightness(0.48);
+  filter: saturate(0.92) contrast(1.04) brightness(0.48);
   opacity: 0.48;
   transform: scale(1.04);
 }
@@ -1899,7 +1899,7 @@ body.fixed-top-nav {
 
   .lab-visual-media {
     opacity: 0.56;
-    filter: grayscale(1) saturate(0.2) contrast(1.1) brightness(0.62);
+    filter: saturate(0.9) contrast(1.06) brightness(0.64);
   }
 
   .lab-visual-card,
@@ -2236,7 +2236,7 @@ body.fixed-top-nav {
       border-radius: 22px;
       object-fit: cover;
       object-position: center top;
-      filter: grayscale(1) contrast(0.98);
+      filter: saturate(1.03) contrast(1.01);
     }
 
     .more-info {
